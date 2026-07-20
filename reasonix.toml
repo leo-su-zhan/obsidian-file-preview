@@ -1,0 +1,2 @@
+[permissions]
+allow = ["Bash(Get-ChildItem \"D:\\工具\\笔记工具\\ObsidianRepository\\repository\\.obsidian\\plugins\\\" -Directory | Select-Object Name)"]

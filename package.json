@@ -16,9 +16,9 @@
 	},
 	"dependencies": {
 		"@aiden0z/pptx-renderer": "^1.1.0",
+		"docx-preview": "^0.3.7",
 		"highlight.js": "^11.11.1",
 		"jszip": "^3.10.1",
-		"mammoth": "^1.8.0",
 		"xlsx": "^0.18.5"
 	}
 }

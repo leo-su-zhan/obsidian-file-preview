@@ -240,43 +240,62 @@
 	color: var(--color-blue);
 }
 
-/* ===== DOCX Preview ===== */
-.file-preview-docx {
-	font-family: var(--font-text);
-	max-width: 800px;
-	margin: 0 auto;
+/* ===== DOCX Preview (docx-preview) ===== */
+/* docx-preview 渲染时用 className: "file-preview-docx" */
+.file-preview-zoom-wrapper.docx-preview-active {
+	padding: 0 !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.file-preview-docx h1 { font-size: 1.8em; margin: 0.5em 0; }
-.file-preview-docx h2 { font-size: 1.5em; margin: 0.4em 0; }
-.file-preview-docx h3 { font-size: 1.25em; margin: 0.3em 0; }
-.file-preview-docx p { margin: 0.5em 0; line-height: 1.6; }
-.file-preview-docx table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-.file-preview-docx th, .file-preview-docx td {
-	border: 1.5px solid var(--text-muted);
-	padding: 6px 10px;
-	text-align: left;
-}
-.file-preview-docx th {
-	background: var(--background-secondary);
-	font-weight: 600;
-}
-.file-preview-docx img { max-width: 100%; height: auto; }
-
-/* Page break separator for DOCX */
-.docx-page-break {
-	display: block;
-	border: none;
-	border-top: 1.5px dashed var(--text-faint);
-	margin: 24px 0;
-	opacity: 0.6;
+.file-preview-zoom-wrapper.docx-preview-active .file-preview-content {
+	width: max-content;
+	min-width: 100%;
+	transform: none !important;
+	overflow: visible;
+	user-select: text;
+	-webkit-user-select: text;
 }
 
-/* ===== XLSX Preview ===== */
+/* docx-preview 页面 section 不裁切溢出内容 */
+.file-preview-zoom-wrapper.docx-preview-active section.file-preview-docx {
+	overflow: visible !important;
+	user-select: text;
+	-webkit-user-select: text;
+}
+
+.file-preview-zoom-wrapper.docx-preview-active .file-preview-docx {
+	background: white;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+	margin: 0 auto 8px auto;
+}
+
+.file-preview-zoom-wrapper.docx-preview-active .file-preview-docx:last-child {
+	margin-bottom: 0;
+}
+
+.theme-dark .file-preview-zoom-wrapper.docx-preview-active .file-preview-docx {
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 覆盖 docx-preview 库的自带 padding + 灰色背景 */
+.file-preview-docx-wrapper {
+	background: transparent !important;
+	padding: 0 !important;
+}
+
+/* ===== XLSX Tab Bar ===== */
 .file-preview-xlsx {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	transform-origin: 0 0;
+}
+
+.file-preview-zoom-wrapper.xlsx-preview-active {
+	padding: 0 !important;
+	overflow: auto;
 }
 
 .xlsx-toolbar {
@@ -309,36 +328,55 @@
 	color: var(--text-on-accent);
 }
 
+/* ===== XLSX Preview (page style) ===== */
+.xlsx-empty {
+	padding: 32px;
+	text-align: center;
+	color: var(--text-muted);
+}
+
 .xlsx-sheet {
 	display: none;
 }
-
 .xlsx-sheet.active {
 	display: block;
 }
 
-.xlsx-sheet table {
+.xlsx-page {
+	background: white;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+	margin: 0 0 8px 0;
+	padding: 16px;
+	overflow: auto;
+	user-select: text;
+	-webkit-user-select: text;
+}
+
+.theme-dark .xlsx-page {
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.xlsx-page table {
 	border-collapse: collapse;
-	font-size: 13px;
-	width: 100%;
-}
-
-.xlsx-sheet th, .xlsx-sheet td {
-	border: 1px solid var(--background-modifier-border);
-	padding: 4px 8px;
-	white-space: nowrap;
-}
-
-.xlsx-sheet th {
-	background: var(--background-secondary);
-	font-weight: 600;
-}
-
-.xlsx-info {
-	margin-top: 8px;
 	font-size: 12px;
-	color: var(--text-faint);
-	text-align: right;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	width: auto;
+}
+
+.xlsx-page td {
+	border: 1px solid #d0d0d0;
+	padding: 2px 6px;
+	white-space: nowrap;
+	vertical-align: middle;
+	line-height: 1.4;
+	color: #1a1a1a;
+	user-select: text;
+	-webkit-user-select: text;
+}
+
+.theme-dark .xlsx-page td {
+	border-color: #555;
+	color: #e0e0e0;
 }
 
 /* ===== PPT Preview ===== */
@@ -351,7 +389,6 @@
 }
 
 /* ===== Dark Theme Adjustments ===== */
-.theme-dark .file-preview-docx table,
 .theme-dark .xlsx-sheet table {
 	border-color: var(--background-modifier-border);
 }
